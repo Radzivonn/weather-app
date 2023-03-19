@@ -3,8 +3,10 @@
 	<main class="main">
 		<div class="search-line">
 			<img class="search-icon" src="@/assets/svg/loupe.svg">
-			<input class="search__line__input" type="text" placeholder="Search city, country or location" @focusout="setLocation" > 
+			<input class="search__line__input" type="text" placeholder="Search city, country or location" @focusout="setLocation"> 
 		</div>
+
+		<LocationWidget v-if="Object.keys(searchData).length !== 0" :widgetData="searchData" style="margin-bottom: 15px"></LocationWidget>
 
 		<LocationWidget :widgetData="{
 					isMylocation: true,
@@ -50,6 +52,7 @@ export default {
 				pageName: 'Search'
 			},
 			location: '',
+			searchData: {},
 			savedLocationsWeather: [
 				{
 					isMylocation: false,
@@ -116,8 +119,20 @@ export default {
 			this.location = e.target.value;
 		},
 		getWeather(weatherData) {
-			console.log(weatherData);
-		}
+			if (weatherData === 'noLocation') this.searchData = {}; // If the location is entered incorrectly
+			else {
+				this.searchData = {
+					isMylocation: false,
+					location: this.location,
+					forecastTime: `${new Date().getHours()}:${new Date().getMinutes()}`,
+					WeatherIconSrc: 'cloudy2',
+					currentTempreture: String(Math.round(weatherData.data.main.temp)),
+					highAndLowTempreture: [Math.round(weatherData.data.main.temp_max), Math.round(weatherData.data.main.temp_min)],
+					widgetSize: 'big'
+				};
+				console.log(weatherData);
+			}
+		},
 	}
 }
 </script>
@@ -176,6 +191,5 @@ export default {
 		flex-direction: column;
 		gap: 15px;
 	}
-
 
 </style>
