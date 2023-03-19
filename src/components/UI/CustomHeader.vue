@@ -16,25 +16,25 @@ export default {
 }
 </script>
 
-<style lang="scss">
-
+<style lang="scss" scoped>
 .header {
+	position: relative;
+	z-index: 5;
 	width: 100%;
 	height: 30px;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 }
-
 .link-name {
 	font-family: 'Inter', sans-serif;
 	font-size: 24px;
 	font-weight: 700;
-	cursor: pointer;
 	transition: all ease 0.3s;
 	&:active {
 		transform: scale(0.97);
 	}
+	cursor: pointer;
 }
 
 #menu-icon {
@@ -56,4 +56,5 @@ export default {
 #menu-icon:hover {
 	color: #5a5abf;
 }
+
 </style>
