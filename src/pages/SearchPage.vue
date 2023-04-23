@@ -3,12 +3,11 @@
 	<main class="main">
 		<div class="search-line">
 			<img class="search-icon" src="@/assets/svg/loupe.svg">
-			<input class="search__line__input" type="text" placeholder="Search city, country or location" @focusout="setLocation"> 
+			<input class="search-line__input" type="text" placeholder="Search city, country or location" @focusout="setLocation" @keyup.enter="setLocation"> 
 		</div>
-
 		<LocationWidget v-if="Object.keys(searchData).length !== 0" :widgetData="searchData" style="margin-bottom: 15px"></LocationWidget>
 
-		<LocationWidget :widgetData="{
+		<!-- <LocationWidget :widgetData="{
 					isMylocation: true,
 					location: 'Minsk',
 					forecastTime: '12:00',
@@ -16,15 +15,15 @@
 					currentTempreture: '-1',
 					highAndLowTempreture: [4, -2],
 					widgetSize: 'big'
-				}"></LocationWidget>
+				}"></LocationWidget> -->
 		
-		<h3 class="widgetName" style="margin: 15px 0 10px"> Saved locations </h3>
-		<div class="savedLocations__block">
+		<h3 class="widget-name" style="margin: 15px 0 10px"> Saved locations </h3>
+		<div class="saved-locations-block">
 			<LocationWidget v-for="data in savedLocationsWeather" :key="data" :widgetData="data"></LocationWidget>
 		</div>
 
-		<h3 class="widgetName" style="margin: 15px 0 10px"> Latest searches </h3>
-		<div class="LatestSearches__block">
+		<h3 class="widget-name" style="margin: 15px 0 10px"> Latest searches </h3>
+		<div class="latest-searches-block">
 			<LocationWidget v-for="data in latestSearchesWeather" :key="data" :widgetData="data"></LocationWidget>
 		</div>
 
@@ -58,7 +57,7 @@ export default {
 					isMylocation: false,
 					location: 'Minsk',
 					forecastTime: '12:00',
-					WeatherIconSrc: 'rainy',
+					WeatherIconSrc: 'Rain',
 					currentTempreture: '-1',
 					highAndLowTempreture: [4, -2],
 					widgetSize: 'medium'
@@ -76,41 +75,13 @@ export default {
 					isMylocation: false,
 					location: 'Minsk',
 					forecastTime: '12:00',
-					WeatherIconSrc: 'cloudy2',
+					WeatherIconSrc: 'Clouds',
 					currentTempreture: '-1',
 					highAndLowTempreture: [4, -2],
 					widgetSize: 'medium'
 				}
 			],
-			latestSearchesWeather: [
-				{
-					isMylocation: false,
-					location: 'Minsk',
-					forecastTime: '12:00',
-					WeatherIconSrc: 'cloudy2',
-					currentTempreture: '-1',
-					highAndLowTempreture: [4, -2],
-					widgetSize: 'big'
-				},
-				{
-					isMylocation: false,
-					location: 'Minsk',
-					forecastTime: '13:00',
-					WeatherIconSrc: 'sunny',
-					currentTempreture: '-1',
-					highAndLowTempreture: [4, -2],
-					widgetSize: 'big'
-				},
-				{
-					isMylocation: false,
-					location: 'Minsk',
-					forecastTime: '12:00',
-					WeatherIconSrc: 'cloudy2',
-					currentTempreture: '-1',
-					highAndLowTempreture: [4, -2],
-					widgetSize: 'big'
-				}
-			]
+			latestSearchesWeather: []
 		}
 	},
 
@@ -125,11 +96,12 @@ export default {
 					isMylocation: false,
 					location: this.location,
 					forecastTime: `${new Date().getHours()}:${new Date().getMinutes()}`,
-					WeatherIconSrc: 'cloudy2',
+					WeatherIconSrc: `${weatherData.data.weather[0].main}`,
 					currentTempreture: String(Math.round(weatherData.data.main.temp)),
 					highAndLowTempreture: [Math.round(weatherData.data.main.temp_max), Math.round(weatherData.data.main.temp_min)],
 					widgetSize: 'big'
 				};
+				this.latestSearchesWeather.unshift(this.searchData);
 				console.log(weatherData);
 			}
 		},
@@ -158,7 +130,7 @@ export default {
 		transform: translate(20px, 70%);
 	}
 
-	.search__line__input {
+	.search-line__input {
 		width: 100%;
 		height: inherit;
 		background: rgba(255, 255, 255, 0.1);
@@ -171,12 +143,12 @@ export default {
 		color: #F4F4F4;
 	}
 
-	.widgetName {
+	.widget-name {
 		font-weight: 600;
 		font-size: 20px; 
 	}
 	
-	.savedLocations__block {
+	.saved-locations-block {
 		display: flex;
 		gap: 10px;
 		overflow-x: scroll;
@@ -185,11 +157,13 @@ export default {
 		}
 	}
 
-	.LatestSearches__block {
+	.latest-searches-block {
 		width: 100%;
+		max-height: 360px;
 		display: flex;
 		flex-direction: column;
 		gap: 15px;
+		overflow-y: scroll;
 	}
 
 </style>

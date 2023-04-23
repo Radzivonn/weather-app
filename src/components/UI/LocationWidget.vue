@@ -1,13 +1,13 @@
 <template>
-	<div class="location__widget" :class="widgetData.widgetSize + 'Widget'">
-			<div class="location__text">
+	<div class="location-widget " :class="'location-widget_' + widgetData.widgetSize + '-size'">
+			<div class="location-widget__text">
 				<h3 v-if="widgetData.isMylocation"> My location </h3>
 				<h3 v-else> {{ widgetData.location }} </h3>
 				<p style="margin:5px 0 20px"> {{ widgetData.isMylocation ? widgetData.location : widgetData.forecastTime }} </p>
 			</div>
-			<div class="location__weather">
-				<img class="weather__icon" :src="require(`@/assets/svg/${widgetData.WeatherIconSrc}.svg`)">
-				<div class="tempreture">
+			<div class="location-widget__weather">
+				<img class="weather-icon" :src="require(`@/assets/svg/${widgetData.WeatherIconSrc}.svg`)">
+				<div class="weather__tempreture">
 					<p id="currentTempreture"> {{ widgetData.currentTempreture }}° </p>
 					<p id="highAndLowTempreture"> H: {{ widgetData.highAndLowTempreture[0] }}° L: {{ widgetData.highAndLowTempreture[1] }}° </p>
 				</div>
@@ -38,7 +38,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.location__widget {
+.location-widget {
 		position: relative;
 		display: flex;
 		justify-content: space-between;
@@ -55,7 +55,7 @@ export default {
 		// font-family: 'Inter', sans-serif;
 	}
 
-	.location__text {
+	.location-widget__text {
 		margin-bottom: 5px;
 		h3 {
 			font-weight: 700;
@@ -67,7 +67,7 @@ export default {
 		}
 	}
 
-	.location__weather {
+	.location-widget__weather {
 		display: flex;
     flex-direction: column;
 		justify-content: center;
@@ -75,7 +75,7 @@ export default {
     text-align: center;
 	}
 
-	.weather__icon {
+	.weather-icon {
 		width: 32px;
 		height: 32px;
 	}
@@ -96,15 +96,15 @@ export default {
 		margin: 0 auto;
 	}
 
-	.mediumWidget {
+	.location-widget_medium-size {
 		min-width: 210px;
 		align-items: end;
 		margin: 45px auto 16px;
 
-		.location__weather {
+		.location-widget__weather {
 			margin: auto 0;
 		}
-		.weather__icon {
+		.weather-icon {
 			position: absolute;
 			top: -25px;
     	left: 0;

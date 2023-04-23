@@ -29,11 +29,12 @@ export default {
 
 .wrapper {
 	position: relative;
+	// z-index: -5; // bug
 	width: 100%;
 	height: 100vh;
 	overflow: hidden;
 	color: white;
-	padding: 20px;
+	padding: 16px;
 	// font-family: 'Roboto', sans-serif;
 }
 
@@ -45,7 +46,7 @@ export default {
 	width: 1213px;
 	height: 1213px;
 	border-radius: 50%;
-	transform: translate(-50%, -35%) matrix(1, 0, 0, -1, 0, 0);
+	transform: translate(-50%, -35vh) matrix(1, 0, 0, -1, 0, 0);
 }
 
 // .main {

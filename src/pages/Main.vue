@@ -14,7 +14,7 @@ export default {
 		return {
 			pageInfo: {
 				link: '/searchPage',
-				pageName: 'Search'
+				pageName: 'Home'
 			}
 		}
 	},
