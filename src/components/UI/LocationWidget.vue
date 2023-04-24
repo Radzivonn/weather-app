@@ -1,5 +1,5 @@
 <template>
-	<div class="location-widget " :class="'location-widget_' + widgetData.widgetSize + '-size'">
+	<section class="location-widget" :class="'location-widget_' + widgetData.widgetSize + '-size'">
 			<div class="location-widget__text">
 				<h3 v-if="widgetData.isMylocation"> My location </h3>
 				<h3 v-else> {{ widgetData.location }} </h3>
@@ -12,7 +12,7 @@
 					<p id="highAndLowTempreture"> H: {{ widgetData.highAndLowTempreture[0] }}° L: {{ widgetData.highAndLowTempreture[1] }}° </p>
 				</div>
 			</div>
-		</div>
+		</section>
 </template>
 
 <script>
@@ -91,7 +91,7 @@ export default {
 		font-size: 12px;
 	}
 
-	.bigWidget {
+	.location-widget_big-size {
 		width: 100%;
 		margin: 0 auto;
 	}

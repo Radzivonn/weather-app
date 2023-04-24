@@ -1,32 +1,35 @@
 <template>
 	<CustomHeader :pageInfo="pageInfo"></CustomHeader>
+
 	<main class="main">
-		<div class="search-line">
-			<img class="search-icon" src="@/assets/svg/loupe.svg">
-			<input class="search-line__input" type="text" placeholder="Search city, country or location" @focusout="setLocation" @keyup.enter="setLocation"> 
-		</div>
-		<LocationWidget v-if="Object.keys(searchData).length !== 0" :widgetData="searchData" style="margin-bottom: 15px"></LocationWidget>
+		<article>
+			<form class="search-line" @submit.prevent>
+				<img class="search-icon" src="@/assets/svg/loupe.svg">
+				<input class="search-line__input" type="text" placeholder="Search city, country or location" @focusout="setLocation" @keyup.enter.prevent="setLocation"> 
+			</form>
 
-		<!-- <LocationWidget :widgetData="{
-					isMylocation: true,
-					location: 'Minsk',
-					forecastTime: '12:00',
-					WeatherIconSrc: 'cloudy',
-					currentTempreture: '-1',
-					highAndLowTempreture: [4, -2],
-					widgetSize: 'big'
-				}"></LocationWidget> -->
-		
-		<h3 class="widget-name" style="margin: 15px 0 10px"> Saved locations </h3>
-		<div class="saved-locations-block">
-			<LocationWidget v-for="data in savedLocationsWeather" :key="data" :widgetData="data"></LocationWidget>
-		</div>
+			<!-- <LocationWidget :widgetData="{
+						isMylocation: true,
+						location: 'Minsk',
+						forecastTime: '12:00',
+						WeatherIconSrc: 'cloudy',
+						currentTempreture: '-1',
+						highAndLowTempreture: [4, -2],
+						widgetSize: 'big'
+					}"></LocationWidget> -->
 
-		<h3 class="widget-name" style="margin: 15px 0 10px"> Latest searches </h3>
-		<div class="latest-searches-block">
-			<LocationWidget v-for="data in latestSearchesWeather" :key="data" :widgetData="data"></LocationWidget>
-		</div>
+			<LocationWidget v-if="Object.keys(searchData).length !== 0" :widgetData="searchData" style="margin-bottom: 15px"></LocationWidget>
 
+			<h3 class="widget-name"> Saved locations </h3>
+			<article class="saved-locations-block">
+				<LocationWidget v-for="data in savedLocationsWeather" :key="data" :widgetData="data"></LocationWidget>
+			</article>
+
+			<h3 class="widget-name"> Latest searches </h3>
+			<article class="latest-searches-block">
+				<LocationWidget v-for="data in latestSearchesWeather" :key="data" :widgetData="data"></LocationWidget>
+			</article>
+		</article>
 	</main>
 
 	<WeatherComponent :location="location" @getWeather="getWeather"></WeatherComponent>
@@ -95,14 +98,14 @@ export default {
 				this.searchData = {
 					isMylocation: false,
 					location: this.location,
-					forecastTime: `${new Date().getHours()}:${new Date().getMinutes()}`,
+					forecastTime:
+						`${new Date().getHours()}:${new Date().getMinutes() < 10 ? '0' + new Date().getMinutes() : new Date().getMinutes()}`,
 					WeatherIconSrc: `${weatherData.data.weather[0].main}`,
 					currentTempreture: String(Math.round(weatherData.data.main.temp)),
 					highAndLowTempreture: [Math.round(weatherData.data.main.temp_max), Math.round(weatherData.data.main.temp_min)],
 					widgetSize: 'big'
 				};
 				this.latestSearchesWeather.unshift(this.searchData);
-				console.log(weatherData);
 			}
 		},
 	}
@@ -145,7 +148,8 @@ export default {
 
 	.widget-name {
 		font-weight: 600;
-		font-size: 20px; 
+		font-size: 20px;
+		margin: 15px 0 10px;
 	}
 	
 	.saved-locations-block {

@@ -135,6 +135,7 @@ export default {
 			display: flex;
     	align-items: center;
    	 	gap: 4px;
+			font-size: 16px;
 		}
 	}
 
