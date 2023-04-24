@@ -8,16 +8,6 @@
 				<input class="search-line__input" type="text" placeholder="Search city, country or location" @focusout="setLocation" @keyup.enter.prevent="setLocation"> 
 			</form>
 
-			<!-- <LocationWidget :widgetData="{
-						isMylocation: true,
-						location: 'Minsk',
-						forecastTime: '12:00',
-						WeatherIconSrc: 'cloudy',
-						currentTempreture: '-1',
-						highAndLowTempreture: [4, -2],
-						widgetSize: 'big'
-					}"></LocationWidget> -->
-
 			<LocationWidget v-if="Object.keys(searchData).length !== 0" :widgetData="searchData" style="margin-bottom: 15px"></LocationWidget>
 
 			<h3 class="widget-name"> Saved locations </h3>
@@ -113,7 +103,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 	.main {
 		position: relative;
 		z-index: 5;
@@ -169,5 +158,4 @@ export default {
 		gap: 15px;
 		overflow-y: scroll;
 	}
-
 </style>

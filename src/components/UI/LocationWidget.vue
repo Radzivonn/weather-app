@@ -52,7 +52,6 @@ export default {
 		&:hover {
 			background-color: rgba(255, 255, 255, 0.2);
 		}
-		// font-family: 'Inter', sans-serif;
 	}
 
 	.location-widget__text {
@@ -115,8 +114,5 @@ export default {
 		#currentTempreture {
 			font-size: 32px;
 		}
-
 	}
-	
-
 </style>

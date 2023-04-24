@@ -62,19 +62,6 @@ export default {
 	},
 
 	methods: {
-		// getCurrentWeather(weatherData) {
-		// 	if (weatherData === 'noLocation') this.currentWeatherData = {}; // If the location is entered incorrectly
-		// 	else {
-		// 		this.currentWeatherData = {
-		// 			location: this.location,
-		// 			forecastTime:
-		// 				`${new Date().getHours()}:${new Date().getMinutes() < 10 ? '0' + new Date().getMinutes() : new Date().getMinutes()}`,
-		// 			WeatherIconSrc: `${weatherData.data.weather[0].main}`,
-		// 			currentTempreture: String(Math.round(weatherData.data.main.temp)),
-		// 			highAndLowTempreture: [Math.round(weatherData.data.main.temp_max), Math.round(weatherData.data.main.temp_min)],
-		// 		};
-		// 	}
-		// },
 	}
 }
 </script>
@@ -138,6 +125,4 @@ export default {
 			font-size: 16px;
 		}
 	}
-
-
 </style>
