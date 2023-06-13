@@ -8,7 +8,7 @@
 				<input class="search-line__input" type="text" placeholder="Search city, country or location" @focusout="setLocation" @keyup.enter.prevent="setLocation"> 
 			</form>
 
-			<LocationWidget v-if="Object.keys(searchData).length !== 0" :widgetData="searchData" style="margin-bottom: 15px"></LocationWidget>
+			<LocationWidget v-if="latestSearchesWeather.length > 0 && Object.keys(latestSearchesWeather[0]).length > 0" :widgetData="latestSearchesWeather[0]" style="margin-bottom: 15px"></LocationWidget>
 
 			<h3 class="widget-name"> Saved locations </h3>
 			<article class="saved-locations-block">
@@ -44,7 +44,6 @@ export default {
 				pageName: 'Search'
 			},
 			location: '',
-			searchData: {},
 			savedLocationsWeather: [
 				{
 					isMylocation: false,
@@ -82,24 +81,12 @@ export default {
 		setLocation(e) {
 			this.location = e.target.value;
 		},
-		getWeather(weatherData) {
-			if (weatherData === 'noLocation') this.searchData = {}; // If the location is entered incorrectly
-			else {
-				this.searchData = {
-					isMylocation: false,
-					location: this.location,
-					forecastTime:
-						`${new Date().getHours()}:${new Date().getMinutes() < 10 ? '0' + new Date().getMinutes() : new Date().getMinutes()}`,
-					WeatherIconSrc: `${weatherData.data.weather[0].main}`,
-					currentTempreture: String(Math.round(weatherData.data.main.temp)),
-					highAndLowTempreture: [Math.round(weatherData.data.main.temp_max), Math.round(weatherData.data.main.temp_min)],
-					widgetSize: 'big'
-				};
-				this.latestSearchesWeather.unshift(this.searchData);
-			}
-		},
-	}
+		getWeather(searchData) {
+			if(searchData) this.latestSearchesWeather.unshift(searchData);
+		}
+	},
 }
+
 </script>
 
 <style lang="scss" scoped>
