@@ -8,7 +8,7 @@
 				<input class="search-line__input" type="text" placeholder="Search city, country or location" @focusout="setLocation" @keyup.enter.prevent="setLocation"> 
 			</form>
 
-			<LocationWidget v-if="latestSearches.length > 0 && Object.keys(latestSearches[0]).length > 0" :widgetData="latestSearches[0]" style="margin-bottom: 15px"></LocationWidget>
+			<LocationWidget v-if="Object.keys(currentSearch).length > 0" :widgetData="currentSearch" style="margin-bottom: 15px"></LocationWidget>
 
 			<h3 class="widget-name"> Saved locations </h3>
 			<article class="saved-locations-block">
@@ -73,7 +73,8 @@ export default {
 					widgetSize: 'medium'
 				}
 			],
-			latestSearches: []
+			latestSearches: [],
+			currentSearch: {}
 		}
 	},
 
@@ -82,7 +83,10 @@ export default {
 			this.location = e.target.value;
 		},
 		getWeather(searchData) {
-			if (searchData) this.latestSearches.unshift(searchData);
+			if (searchData) {
+				this.latestSearches.unshift(searchData);
+				this.currentSearch = this.latestSearches[0];
+			}
 		}
 	},
 
