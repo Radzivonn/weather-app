@@ -8,7 +8,7 @@
 				<input class="search-line__input" type="text" placeholder="Search city, country or location" @focusout="setLocation" @keyup.enter.prevent="setLocation"> 
 			</form>
 
-			<LocationWidget v-if="latestSearchesWeather.length > 0 && Object.keys(latestSearchesWeather[0]).length > 0" :widgetData="latestSearchesWeather[0]" style="margin-bottom: 15px"></LocationWidget>
+			<LocationWidget v-if="latestSearches.length > 0 && Object.keys(latestSearches[0]).length > 0" :widgetData="latestSearches[0]" style="margin-bottom: 15px"></LocationWidget>
 
 			<h3 class="widget-name"> Saved locations </h3>
 			<article class="saved-locations-block">
@@ -17,7 +17,7 @@
 
 			<h3 class="widget-name"> Latest searches </h3>
 			<article class="latest-searches-block">
-				<LocationWidget v-for="data in latestSearchesWeather" :key="data" :widgetData="data"></LocationWidget>
+				<LocationWidget v-for="data in latestSearches" :key="data" :widgetData="data"></LocationWidget>
 			</article>
 		</article>
 	</main>
@@ -73,7 +73,7 @@ export default {
 					widgetSize: 'medium'
 				}
 			],
-			latestSearchesWeather: []
+			latestSearches: []
 		}
 	},
 
@@ -82,9 +82,18 @@ export default {
 			this.location = e.target.value;
 		},
 		getWeather(searchData) {
-			if(searchData) this.latestSearchesWeather.unshift(searchData);
+			if (searchData) this.latestSearches.unshift(searchData);
 		}
 	},
+
+	created() {
+		window.addEventListener(
+			'beforeunload',
+			() => sessionStorage.setItem('latestSearches', JSON.stringify(this.latestSearches))
+		);
+		const savedOptions = sessionStorage.getItem('latestSearches');
+		if (savedOptions) this.latestSearches = JSON.parse(savedOptions);
+	}
 }
 
 </script>

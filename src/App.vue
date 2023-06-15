@@ -1,6 +1,6 @@
 <template>
 	<div class="app">
-		<div class="wrapper" :class="theme">
+		<div class="wrapper" :class="colorTheme">
 			<div class="bgSecondLayer"> </div>
 				<router-view></router-view>
 		</div>
@@ -10,14 +10,18 @@
 <script>
 
 export default {
-	components: {
-
-	},
-
 	data() {
 		return {
-			theme: 'dark-mode'
+			colorTheme: "dark-mode",
 		}
+	},
+	created() {
+		window.addEventListener(
+			'beforeunload',
+			() => sessionStorage.setItem('colorTheme', JSON.stringify(this.colorTheme))
+		);
+		const savedOptions = sessionStorage.getItem('colorTheme');
+		if (savedOptions) this.colorTheme = JSON.parse(savedOptions);
 	}
 }
 </script>
