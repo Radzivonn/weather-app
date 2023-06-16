@@ -8,8 +8,8 @@
 			<div class="location-widget__weather">
 				<img class="weather-icon" :src="require(`@/assets/svg/${widgetData.WeatherIconSrc}.svg`)">
 				<div class="weather__tempreture">
-					<p id="currentTempreture"> {{ widgetData.currentTempreture }}° </p>
-					<p id="highAndLowTempreture"> H: {{ widgetData.highAndLowTempreture[0] }}° L: {{ widgetData.highAndLowTempreture[1] }}° </p>
+					<p id="currentTempreture"> {{ widgetData.forecast.currentTempreture }}° </p>
+					<p id="highAndLowTempreture"> H: {{ widgetData.forecast.highAndLowTempreture[0] }}° L: {{ widgetData.forecast.highAndLowTempreture[1] }}° </p>
 				</div>
 			</div>
 		</section>
@@ -27,11 +27,17 @@ export default {
 		widgetData: {
 			isMylocation: Boolean,
 			location: String,
+			forecastDate: String,
 			forecastTime: String,
 			WeatherIconSrc: String,
-			currentTempreture: String,
-			highAndLowTempreture: Array,
-			widgetSize: String // big / medium / small
+			widgetSize: String, // big / medium / small
+			forecast: {
+				currentTempreture: String,
+				highAndLowTempreture: Array,
+				humidity: String,
+				rainChance: String, // TODO
+				windSpeed: String,
+			}
 		}
 	}
 }

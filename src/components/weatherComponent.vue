@@ -15,6 +15,7 @@ export default {
 		async getWeather(url) {
 			try {
 				const response = await axios.get(url);
+				console.log(response);
 				return this.getSearchData(response);
 			} catch (err) {
 				console.log(err);
@@ -26,12 +27,21 @@ export default {
 				return {
 					isMylocation: false,
 					location: this.location,
+					WeatherIconSrc: `${weatherData.data.weather[0].main}`,
+					widgetSize: 'big',
+					forecastDate: new Date().toLocaleString('en', {
+						month: 'long',
+						day: 'numeric'
+					}),
 					forecastTime:
 						`${new Date().getHours()}:${new Date().getMinutes() < 10 ? '0' + new Date().getMinutes() : new Date().getMinutes()}`,
-					WeatherIconSrc: `${weatherData.data.weather[0].main}`,
-					currentTempreture: String(Math.round(weatherData.data.main.temp)),
-					highAndLowTempreture: [Math.round(weatherData.data.main.temp_max), Math.round(weatherData.data.main.temp_min)],
-					widgetSize: 'big'
+					forecast: {
+						currentTempreture: String(Math.round(weatherData.data.main.temp)),
+						highAndLowTempreture: [Math.round(weatherData.data.main.temp_max), Math.round(weatherData.data.main.temp_min)],
+						humidity: String(weatherData.data.main.humidity),
+						rainChance: '', // TODO
+						windSpeed: String(weatherData.data.wind.speed),
+					}
 				};
 			}
 		},
