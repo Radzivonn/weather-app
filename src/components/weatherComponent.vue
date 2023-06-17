@@ -27,7 +27,8 @@ export default {
 				return {
 					isMylocation: false,
 					location: this.location,
-					WeatherIconSrc: `${weatherData.data.weather[0].main}`,
+					weatherDescription: (weatherData.data.weather[0].description).replaceAll(' ', ''),
+					WeatherIconSrc: `${(weatherData.data.weather[0].main).replaceAll(' ', '')}`,
 					widgetSize: 'big',
 					forecastDate: new Date().toLocaleString('en', {
 						month: 'long',
