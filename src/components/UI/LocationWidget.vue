@@ -6,7 +6,7 @@
 				<p style="margin:5px 0 20px"> {{ widgetData.isMylocation ? widgetData.location : widgetData.forecastTime }} </p>
 			</div>
 			<div class="location-widget__weather">
-				<img class="weather-icon" :src="require(`@/assets/svg/${widgetData.WeatherIconSrc}.svg`)">
+				<img class="weather-icon" :src="getImagePath(widgetData)">
 				<div class="weather__tempreture">
 					<p id="currentTempreture"> {{ widgetData.forecast.currentTempreture }}° </p>
 					<p id="highAndLowTempreture"> H: {{ widgetData.forecast.highAndLowTempreture[0] }}° L: {{ widgetData.forecast.highAndLowTempreture[1] }}° </p>
@@ -16,10 +16,12 @@
 </template>
 
 <script>
+import { getImagePath } from '@/components/helpFunctions.js';
+
 export default {
 	data() {
 		return {
-
+			getImagePath: getImagePath
 		}
 	},
 
