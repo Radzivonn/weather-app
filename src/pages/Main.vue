@@ -1,42 +1,42 @@
 <template>
 	<CustomHeader :pageInfo="pageInfo" ></CustomHeader>
 
-	<main class="main">
+	<main v-if="Object.keys($store.state.locationData.currentLocationData).length > 0" class="main">
 		<article class="current-weather-widget">
 			<section class="current-weather-widget__main-info">
-				<img class="weather-icon" :src="require(`@/assets/svg/${currentWeatherData.WeatherIconSrc}.svg`)">
-				<p id="currentTempreture"> {{ currentWeatherData.currentTempreture }}° </p>
-				<p id="location"> {{ currentWeatherData.location }} </p>
-				<p id="highAndLowTempreture"> H: {{ currentWeatherData.highAndLowTempreture[0] }}° L: {{ currentWeatherData.highAndLowTempreture[1] }}° </p>
+				<img class="weather-icon" :src="getImagePath($store.state.locationData.currentLocationData)">
+				<p id="currentTempreture"> {{ $store.state.locationData.currentLocationData.forecast.currentTempreture }}° </p>
+				<p id="location"> {{ $store.state.locationData.currentLocationData.location }} </p>
+				<p id="highAndLowTempreture"> H: {{ $store.state.locationData.currentLocationData.forecast.highAndLowTempreture[0] }}° L: {{ $store.state.locationData.currentLocationData.forecast.highAndLowTempreture[1] }}° </p>
 			</section>
 			<section class="current-weather-widget__secondary-info">
 				<div id="rain-chance">
 					<img src="@/assets/svg/Icon=CloudRain.svg" alt="">
-					<p> {{ currentWeatherData.rainChance }}</p>
+					<p> {{ $store.state.locationData.currentLocationData.forecast.rainChance }}</p>
 				</div>
 				<div id="humidity">
 					<img src="@/assets/svg/Icon=Drop.svg" alt="">
-					<p> {{ currentWeatherData.humidity }}</p>
+					<p> {{ $store.state.locationData.currentLocationData.forecast.humidity }}</p>
 				</div>
 				<div id="wind-speed">
 					<img src="@/assets/svg/Icon=Wind.svg" alt="">
-					<p> {{ currentWeatherData.windSpeed }}</p>
+					<p> {{ $store.state.locationData.currentLocationData.forecast.windSpeed }}</p>
 				</div>
 			</section>
 		</article>
 	</main>
 
-	<!-- <WeatherComponent :location="location" @getWeather="getWeather"></WeatherComponent> -->
 </template>
 
 <script>
 import CustomHeader from "@/components/UI/CustomHeader";
 import WeatherComponent from "@/components/WeatherComponent";
+import { getImagePath } from '@/components/helpFunctions.js';
 
 export default {
 	components: {
 		CustomHeader,
-		WeatherComponent
+		WeatherComponent,
 	},
 
 	data() {
@@ -45,24 +45,9 @@ export default {
 				link: '/searchPage',
 				pageName: 'Home'
 			},
-			location: '',
-			currentWeatherData: {
-					isMylocation: false,
-					location: 'Minsk',
-					forecastTime: '12:00',
-					WeatherIconSrc: 'cloudy&sunny',
-					currentTempreture: '-1',
-					highAndLowTempreture: [4, -2],
-					humidity: '87%',
-					rainChance: '45%',
-					windSpeed: '19km/h',
-					widgetSize: 'medium'
-			},
+			getImagePath: getImagePath
 		}
 	},
-
-	methods: {
-	}
 }
 </script>
 
