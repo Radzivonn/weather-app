@@ -8,7 +8,11 @@
 				<input class="search-line__input" type="text" placeholder="Search city, country or location" @focusout="setLocation" @keyup.enter.prevent="setLocation"> 
 			</form>
 
-			<LocationWidget v-if="Object.keys(currentSearch).length > 0" :widgetData="currentSearch" style="margin-bottom: 15px"></LocationWidget>
+			<LocationWidget 
+				v-if="Object.keys($store.state.locationData.currentLocationData).length > 0"
+				:widgetData="$store.state.locationData.currentLocationData" 
+				style="margin-bottom: 15px">
+			</LocationWidget>
 
 			<h3 class="widget-name"> Saved locations </h3>
 			<article class="saved-locations-block">
@@ -45,33 +49,33 @@ export default {
 			},
 			location: '',
 			savedLocationsWeather: [
-				{
-					isMylocation: false,
-					location: 'Minsk',
-					forecastTime: '12:00',
-					WeatherIconSrc: 'Rain',
-					currentTempreture: '-1',
-					highAndLowTempreture: [4, -2],
-					widgetSize: 'medium'
-				},
-				{
-					isMylocation: false,
-					location: 'Minsk',
-					forecastTime: '12:00',
-					WeatherIconSrc: 'sunny',
-					currentTempreture: '-1',
-					highAndLowTempreture: [4, -2],
-					widgetSize: 'medium'
-				},
-				{
-					isMylocation: false,
-					location: 'Minsk',
-					forecastTime: '12:00',
-					WeatherIconSrc: 'Clouds',
-					currentTempreture: '-1',
-					highAndLowTempreture: [4, -2],
-					widgetSize: 'medium'
-				}
+				// {
+				// 	isMylocation: false,
+				// 	location: 'Minsk',
+				// 	forecastTime: '12:00',
+				// 	WeatherIconSrc: 'Rain',
+				// 	currentTempreture: '-1',
+				// 	highAndLowTempreture: [4, -2],
+				// 	widgetSize: 'medium'
+				// },
+				// {
+				// 	isMylocation: false,
+				// 	location: 'Minsk',
+				// 	forecastTime: '12:00',
+				// 	WeatherIconSrc: 'sunny',
+				// 	currentTempreture: '-1',
+				// 	highAndLowTempreture: [4, -2],
+				// 	widgetSize: 'medium'
+				// },
+				// {
+				// 	isMylocation: false,
+				// 	location: 'Minsk',
+				// 	forecastTime: '12:00',
+				// 	WeatherIconSrc: 'Clouds',
+				// 	currentTempreture: '-1',
+				// 	highAndLowTempreture: [4, -2],
+				// 	widgetSize: 'medium'
+				// }
 			],
 			latestSearches: [],
 			currentSearch: {}
@@ -85,7 +89,7 @@ export default {
 		getWeather(searchData) {
 			if (searchData) {
 				this.latestSearches.unshift(searchData);
-				this.currentSearch = this.latestSearches[0];
+				this.$store.commit('locationData/setLocationData', this.latestSearches[0]);
 			}
 		}
 	},
