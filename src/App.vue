@@ -12,7 +12,7 @@
 export default {
 	data() {
 		return {
-			colorTheme: "dark-mode",
+			colorTheme: 'dark-mode',
 		}
 	},
 	created() {
@@ -20,8 +20,11 @@ export default {
 			'beforeunload',
 			() => sessionStorage.setItem('colorTheme', JSON.stringify(this.colorTheme))
 		);
-		const savedOptions = sessionStorage.getItem('colorTheme');
-		if (savedOptions) this.colorTheme = JSON.parse(savedOptions);
+		const savedTheme = sessionStorage.getItem('colorTheme');
+		if (savedTheme) this.colorTheme = JSON.parse(savedTheme);
+		const savedSearches = sessionStorage.getItem('latestSearches');
+		if (savedSearches && JSON.parse(savedSearches).length > 0)
+			this.$store.commit('locationData/setLocationData', JSON.parse(savedSearches)[0]);
 	}
 }
 </script>
