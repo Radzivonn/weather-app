@@ -24,18 +24,29 @@
 				</div>
 			</section>
 		</article>
+		<article class="upcoming-forecast-widget">
+			<div class="header">
+				<h3> Today </h3>
+				<p class="date"> {{ $store.state.locationData.currentLocationData.forecastDate }} </p>
+			</div>
+			<section class="upcoming-forecast">
+
+			</section>
+		</article>
 	</main>
 
 </template>
 
 <script>
 import CustomHeader from "@/components/UI/CustomHeader";
+import ForecastWidget from "@/components/UI/ForecastWidget";
 import WeatherComponent from "@/components/WeatherComponent";
 import { getImagePath } from '@/components/helpFunctions.js';
 
 export default {
 	components: {
 		CustomHeader,
+		ForecastWidget,
 		WeatherComponent,
 	},
 
@@ -109,5 +120,35 @@ export default {
    	 	gap: 4px;
 			font-size: 16px;
 		}
+	}
+	.upcoming-forecast-widget {
+		width: 100%;
+		height: 160px;
+		background: rgba(255, 255, 255, 0.1);
+		backdrop-filter: blur(8px);
+		border-radius: 24px;
+		margin-top: 20px;
+		padding: 16px 16px 24px 16px;
+		.header {
+			display: flex;
+			justify-content: space-between;
+			font-family: 'Inter', sans-serif;
+			font-size: 1.3em;
+			margin-bottom: 16px;
+			h3 {
+				font-weight: 700;
+			}
+			.date {
+				font-weight: 400;
+			}
+		}
+	}
+
+	.upcoming-forecast {
+		width: 88%;
+		height: 85px;
+		display: flex;
+		gap: 16px;
+		margin: 0 auto;
 	}
 </style>
