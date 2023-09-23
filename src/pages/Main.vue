@@ -66,7 +66,13 @@
           {{ $store.state.locationData.currentLocationData.forecastDate }}
         </p>
       </div>
-      <section class="upcoming-forecast"></section>
+      <section class="upcoming-forecast">
+        <ForecastWidget
+          v-for="data in $store.state.dailyForecast.dailyForecastData"
+          :key="data"
+          :widgetData="data"
+        />
+      </section>
     </article>
   </main>
 </template>
@@ -167,7 +173,7 @@ export default {
     justify-content: space-between;
     font-family: "Inter", sans-serif;
     font-size: 1.3em;
-    margin-bottom: 16px;
+    margin-bottom: 20px;
     h3 {
       font-weight: 700;
     }
@@ -181,6 +187,7 @@ export default {
   width: 88%;
   height: 85px;
   display: flex;
+  justify-content: space-evenly;
   gap: 16px;
   margin: 0 auto;
 }
