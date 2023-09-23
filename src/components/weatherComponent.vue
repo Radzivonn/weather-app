@@ -6,15 +6,23 @@ import axios from "axios";
 export default {
   data() {
     return {
-      APIKEY: "9b7de6c7e4b137f586b5a0aaf630a7f0",
+      API_KEY: "9b7de6c7e4b137f586b5a0aaf630a7f0",
+      FORECASTS_AMOUNT: 6,
     };
   },
   methods: {
     async getWeather(url) {
       try {
         const response = await axios.get(url);
-        console.log(response);
         return this.getSearchData(response);
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    async getDailyForecast(url) {
+      try {
+        const response = await axios.get(url);
+        return this.getDailyForecastData(response);
       } catch (err) {
         console.log(err);
       }
@@ -55,6 +63,17 @@ export default {
         };
       }
     },
+    getDailyForecastData(dailyForecastResponse) {
+      return dailyForecastResponse.data.list.map((forecast) => {
+        return {
+          forecastTime: new Date(forecast.dt_txt).toLocaleString("en", {
+            hour: "numeric",
+          }),
+          weatherIconSrc: forecast.weather[0].icon,
+          temperature: String(Math.round(forecast.main.temp)),
+        };
+      });
+    },
   },
   props: {
     location: String,
@@ -62,9 +81,16 @@ export default {
 
   watch: {
     async location(location) {
-      const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&lang=en&appid=${this.APIKEY}&units=metric`;
-      const weatherData = location ? await this.getWeather(url) : "noLocation";
+      const currentWeatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${location}&lang=en&appid=${this.API_KEY}&units=metric`;
+      const dailyForecastUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${location}&lang=en&appid=${this.API_KEY}&units=metric&cnt=${this.FORECASTS_AMOUNT}`;
+      const weatherData = location
+        ? await this.getWeather(currentWeatherUrl)
+        : "noLocation";
+      const dailyForecast = location
+        ? await this.getDailyForecast(dailyForecastUrl)
+        : "noLocation";
       this.$emit("getWeather", weatherData);
+      this.$emit("getDailyForecast", dailyForecast);
     },
   },
 };
