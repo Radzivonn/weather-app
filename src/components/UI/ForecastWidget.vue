@@ -1,23 +1,25 @@
 <template>
   <section class="forecast-widget">
     <time class="forecast-time"> {{ widgetData.forecastTime }} </time>
-    <img
-      class="weather-icon"
-      :src="require(`@/assets/svg/${widgetData.weatherIconSrc}.svg`)"
-    />
-    <p class="tempreture">{{ widgetData.tempreture }}</p>
+    <img class="weather-icon" :src="getImagePath(widgetData)" />
+    <p class="tempreture">{{ widgetData.temperature }}</p>
   </section>
 </template>
 
 <script>
+import { getImagePath } from "@/components/helpers.js";
+
 export default {
   data() {
-    return {};
+    return {
+      getImagePath: getImagePath,
+    };
   },
 
   props: {
     widgetData: {
       forecastTime: String,
+      weatherDescription: String,
       weatherIconSrc: String,
       temperature: String,
     },
