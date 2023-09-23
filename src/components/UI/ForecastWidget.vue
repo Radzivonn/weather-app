@@ -19,7 +19,7 @@ export default {
     widgetData: {
       forecastTime: String,
       weatherIconSrc: String,
-      tempreture: String,
+      temperature: String,
     },
   },
 };
