@@ -69,7 +69,11 @@ export default {
           forecastTime: new Date(forecast.dt_txt).toLocaleString("en", {
             hour: "numeric",
           }),
-          weatherIconSrc: forecast.weather[0].icon,
+          weatherDescription: forecast.weather[0].description.replaceAll(
+            " ",
+            ""
+          ),
+          WeatherIconSrc: `${forecast.weather[0].main.replaceAll(" ", "")}`,
           temperature: String(Math.round(forecast.main.temp)),
         };
       });
