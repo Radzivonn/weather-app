@@ -46,6 +46,7 @@
   <WeatherComponent
     :location="location"
     @getWeather="getWeather"
+    @getDailyForecast="getDailyForecast"
   ></WeatherComponent>
 </template>
 
@@ -84,6 +85,14 @@ export default {
         this.$store.commit(
           "locationData/setLocationData",
           this.latestSearches[0]
+        );
+      }
+    },
+    getDailyForecast(dailyForecastData) {
+      if (dailyForecastData) {
+        this.$store.commit(
+          "dailyForecast/setDailyForecastData",
+          dailyForecastData
         );
       }
     },
