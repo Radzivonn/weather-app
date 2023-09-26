@@ -19,6 +19,7 @@
           Object.keys($store.state.locationData.currentLocationData).length > 0
         "
         :widgetData="$store.state.locationData.currentLocationData"
+        @click="redirectToMain"
         style="margin-bottom: 15px"
       >
       </LocationWidget>
@@ -78,6 +79,9 @@ export default {
   methods: {
     setLocation(e) {
       this.location = e.target.value;
+    },
+    redirectToMain() {
+      this.$router.push("/");
     },
     getWeather(searchData) {
       if (searchData) {
