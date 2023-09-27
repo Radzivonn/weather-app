@@ -87,14 +87,13 @@ export default {
     async location(location) {
       const currentWeatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${location}&lang=en&appid=${this.API_KEY}&units=metric`;
       const dailyForecastUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${location}&lang=en&appid=${this.API_KEY}&units=metric&cnt=${this.FORECASTS_AMOUNT}`;
-      const weatherData = location
+      const widgetWeatherData = location
         ? await this.getWeather(currentWeatherUrl)
         : "noLocation";
       const dailyForecast = location
         ? await this.getDailyForecast(dailyForecastUrl)
         : "noLocation";
-      this.$emit("getWeather", weatherData);
-      this.$emit("getDailyForecast", dailyForecast);
+      this.$emit("getWeather", { widgetWeatherData, dailyForecast });
     },
   },
 };
