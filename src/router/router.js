@@ -1,4 +1,4 @@
-import Main from "@/pages/Main";
+import Forecast from "@/pages/Forecast";
 import SearchPage from "@/pages/SearchPage";
 import { createRouter, createWebHistory } from "vue-router";
 
@@ -10,7 +10,7 @@ const routes = [
 
   {
     path: "/forecast",
-    component: Main,
+    component: Forecast,
   },
 ];
 
