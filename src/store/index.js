@@ -1,5 +1,5 @@
 import { createStore } from "vuex";
-import { currentSearch } from "@/store/currentSearchModule";
+import { currentSearch } from "@/store/currentSearch";
 import { latestSearches } from "./latestSearches";
 
 export default createStore({
