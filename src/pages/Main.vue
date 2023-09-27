@@ -68,7 +68,9 @@
       </div>
       <section class="upcoming-forecast">
         <ForecastWidget
-          v-for="data in $store.state.dailyForecast.dailyForecastData"
+          v-for="data in $store.state.latestSearches.latestSearchesData.slice(
+            -1
+          )[0].dailyForecast"
           :key="data"
           :widgetData="data"
         />
@@ -93,7 +95,7 @@ export default {
   data() {
     return {
       pageInfo: {
-        link: "/searchPage",
+        link: "/",
         pageName: "Home",
       },
       getImagePath: getImagePath,
