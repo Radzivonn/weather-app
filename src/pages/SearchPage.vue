@@ -19,7 +19,7 @@
           Object.keys($store.state.locationData.currentLocationData).length > 0
         "
         :widgetData="$store.state.locationData.currentLocationData"
-        @click="redirectToMain"
+        @click="redirectToForecast"
         style="margin-bottom: 15px"
       >
       </LocationWidget>
@@ -36,7 +36,9 @@
       <h3 class="widget-name">Latest searches</h3>
       <article class="latest-searches-block">
         <LocationWidget
-          v-for="data in latestSearches"
+          v-for="data in $store.state.latestSearches.latestSearchesData.map(
+            (weatherData) => weatherData.widgetWeatherData
+          )"
           :key="data"
           :widgetData="data"
         ></LocationWidget>
@@ -47,7 +49,6 @@
   <WeatherComponent
     :location="location"
     @getWeather="getWeather"
-    @getDailyForecast="getDailyForecast"
   ></WeatherComponent>
 </template>
 
@@ -66,13 +67,11 @@ export default {
   data() {
     return {
       pageInfo: {
-        link: "/",
-        pageName: "Search",
+        link: "/forecast",
+        pageName: "Forecast",
       },
       location: "",
       savedLocationsWeather: [],
-      latestSearches: [],
-      currentSearch: {},
     };
   },
 
@@ -80,25 +79,15 @@ export default {
     setLocation(e) {
       this.location = e.target.value;
     },
-    redirectToMain() {
-      this.$router.push("/");
+    redirectToForecast() {
+      this.$router.push("/forecast");
     },
-    getWeather(searchData) {
-      if (searchData) {
-        this.latestSearches.unshift(searchData);
-        this.$store.commit(
-          "locationData/setLocationData",
-          this.latestSearches[0]
-        );
-      }
-    },
-    getDailyForecast(dailyForecastData) {
-      if (dailyForecastData) {
-        this.$store.commit(
-          "dailyForecast/setDailyForecastData",
-          dailyForecastData
-        );
-      }
+    getWeather(weatherData) {
+      this.$store.commit(
+        "locationData/setLocationData",
+        weatherData.widgetWeatherData
+      );
+      this.$store.commit("latestSearches/setLatestSearchesData", weatherData);
     },
   },
 
