@@ -90,17 +90,6 @@ export default {
       this.$store.commit("latestSearches/setLatestSearchesData", weatherData);
     },
   },
-
-  created() {
-    window.addEventListener("beforeunload", () =>
-      sessionStorage.setItem(
-        "latestSearches",
-        JSON.stringify(this.latestSearches)
-      )
-    );
-    const savedOptions = sessionStorage.getItem("latestSearches");
-    if (savedOptions) this.latestSearches = JSON.parse(savedOptions);
-  },
 };
 </script>
 

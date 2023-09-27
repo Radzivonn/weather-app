@@ -20,12 +20,6 @@ export default {
     );
     const savedTheme = sessionStorage.getItem("colorTheme");
     if (savedTheme) this.colorTheme = JSON.parse(savedTheme);
-    const savedSearches = sessionStorage.getItem("latestSearches");
-    if (savedSearches && JSON.parse(savedSearches).length > 0)
-      this.$store.commit(
-        "locationData/setLocationData",
-        JSON.parse(savedSearches)[0]
-      );
   },
 };
 </script>
