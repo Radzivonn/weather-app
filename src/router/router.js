@@ -9,7 +9,7 @@ const routes = [
   },
 
   {
-    path: "/forecast",
+    path: "/forecast/:id",
     component: ForecastPage,
   },
 ];
