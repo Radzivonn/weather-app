@@ -2,33 +2,50 @@
   <CustomHeader :pageInfo="pageInfo"></CustomHeader>
 
   <main
-    v-if="Object.keys($store.state.locationData.currentLocationData).length > 0"
+    v-if="
+      Object.keys(
+        $store.state.latestSearches.latestSearchesData[this.$route.params.id]
+      ).length > 0
+    "
     class="main"
   >
     <article class="current-weather-widget">
       <section class="current-weather-widget__main-info">
         <img
           class="weather-icon"
-          :src="getImagePath($store.state.locationData.currentLocationData)"
+          :src="
+            getImagePath(
+              $store.state.latestSearches.latestSearchesData[
+                this.$route.params.id
+              ].widgetWeatherData
+            )
+          "
         />
         <p id="currentTempreture">
           {{
-            $store.state.locationData.currentLocationData.forecast
-              .currentTempreture
+            $store.state.latestSearches.latestSearchesData[
+              this.$route.params.id
+            ].widgetWeatherData.forecast.currentTempreture
           }}°
         </p>
         <p id="location">
-          {{ $store.state.locationData.currentLocationData.location }}
+          {{
+            $store.state.latestSearches.latestSearchesData[
+              this.$route.params.id
+            ].widgetWeatherData.location
+          }}
         </p>
         <p id="highAndLowTempreture">
           H:
           {{
-            $store.state.locationData.currentLocationData.forecast
-              .highAndLowTempreture[0]
+            $store.state.latestSearches.latestSearchesData[
+              this.$route.params.id
+            ].widgetWeatherData.forecast.highAndLowTempreture[0]
           }}° L:
           {{
-            $store.state.locationData.currentLocationData.forecast
-              .highAndLowTempreture[1]
+            $store.state.latestSearches.latestSearchesData[
+              this.$route.params.id
+            ].widgetWeatherData.forecast.highAndLowTempreture[1]
           }}°
         </p>
       </section>
@@ -37,7 +54,9 @@
           <img src="@/assets/svg/Icon=CloudRain.svg" alt="" />
           <p>
             {{
-              $store.state.locationData.currentLocationData.forecast.rainChance
+              $store.state.latestSearches.latestSearchesData[
+                this.$route.params.id
+              ].widgetWeatherData.forecast.rainChance
             }}
           </p>
         </div>
@@ -45,7 +64,9 @@
           <img src="@/assets/svg/Icon=Drop.svg" alt="" />
           <p>
             {{
-              $store.state.locationData.currentLocationData.forecast.humidity
+              $store.state.latestSearches.latestSearchesData[
+                this.$route.params.id
+              ].widgetWeatherData.forecast.humidity
             }}
           </p>
         </div>
@@ -53,7 +74,9 @@
           <img src="@/assets/svg/Icon=Wind.svg" alt="" />
           <p>
             {{
-              $store.state.locationData.currentLocationData.forecast.windSpeed
+              $store.state.latestSearches.latestSearchesData[
+                this.$route.params.id
+              ].widgetWeatherData.forecast.windSpeed
             }}
           </p>
         </div>
@@ -63,14 +86,18 @@
       <div class="header">
         <h3>Today</h3>
         <p class="date">
-          {{ $store.state.locationData.currentLocationData.forecastDate }}
+          {{
+            $store.state.latestSearches.latestSearchesData[
+              this.$route.params.id
+            ].widgetWeatherData.forecastDate
+          }}
         </p>
       </div>
       <section class="upcoming-forecast">
         <ForecastWidget
-          v-for="data in $store.state.latestSearches.latestSearchesData.slice(
-            -1
-          )[0].dailyForecast"
+          v-for="data in $store.state.latestSearches.latestSearchesData[
+            this.$route.params.id
+          ].dailyForecast"
           :key="data"
           :widgetData="data"
         />

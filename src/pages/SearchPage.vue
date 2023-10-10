@@ -19,7 +19,12 @@
           Object.keys($store.state.locationData.currentLocationData).length > 0
         "
         :widgetData="$store.state.locationData.currentLocationData"
-        @click="redirectToForecast"
+        @click="
+          () =>
+            redirectToForecast(
+              $store.state.latestSearches.latestSearchesData.length - 1
+            )
+        "
         style="margin-bottom: 15px"
       >
       </LocationWidget>
@@ -36,12 +41,15 @@
       <h3 class="widget-name">Latest searches</h3>
       <article class="latest-searches-block">
         <LocationWidget
-          v-for="data in $store.state.latestSearches.latestSearchesData.map(
+          v-for="(
+            data, index
+          ) in $store.state.latestSearches.latestSearchesData.map(
             (weatherData) => weatherData.widgetWeatherData
           )"
           :key="data"
           :widgetData="data"
-        ></LocationWidget>
+          @click="() => redirectToForecast(index)"
+        />
       </article>
     </article>
   </main>
@@ -79,8 +87,8 @@ export default {
     setLocation(e) {
       this.location = e.target.value;
     },
-    redirectToForecast() {
-      this.$router.push("/forecast");
+    redirectToForecast(id) {
+      this.$router.push(`/forecast/${id}`);
     },
     getWeather(weatherData) {
       this.$store.commit(
