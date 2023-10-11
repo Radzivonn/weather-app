@@ -5,7 +5,7 @@ export const latestSearches = {
   getters: {},
   mutations: {
     setLatestSearchesData(state, weatherData) {
-      state.latestSearchesData.push(weatherData);
+      state.latestSearchesData.unshift(weatherData);
     },
   },
   actions: {},

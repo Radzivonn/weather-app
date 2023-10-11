@@ -17,19 +17,12 @@
       <LocationWidget
         v-if="
           $store.state.latestSearches.latestSearchesData.length &&
-          $store.state.latestSearches.latestSearchesData.at(-1)
-            .widgetWeatherData
+          $store.state.latestSearches.latestSearchesData[0].widgetWeatherData
         "
         :widgetData="
-          $store.state.latestSearches.latestSearchesData.at(-1)
-            .widgetWeatherData
+          $store.state.latestSearches.latestSearchesData[0].widgetWeatherData
         "
-        @click="
-          () =>
-            redirectToForecast(
-              $store.state.latestSearches.latestSearchesData.length - 1
-            )
-        "
+        @click="() => redirectToForecast(0)"
         style="margin-bottom: 15px"
       >
       </LocationWidget>
@@ -80,7 +73,7 @@ export default {
   data() {
     return {
       pageInfo: {
-        link: "/forecast",
+        link: "/forecast/0",
         pageName: "Forecast",
       },
       location: "",

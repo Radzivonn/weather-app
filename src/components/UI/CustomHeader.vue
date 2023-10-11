@@ -1,6 +1,13 @@
 <template>
   <header class="header">
-    <a class="link-name" @click="$router.push(pageInfo.link)">
+    <a
+      v-if="
+        $store.state.latestSearches.latestSearchesData.length &&
+        $store.state.latestSearches.latestSearchesData[0].widgetWeatherData
+      "
+      class="link-name"
+      @click="$router.push(pageInfo.link)"
+    >
       {{ pageInfo.pageName }}
     </a>
     <span id="menu-icon"> . </span>
