@@ -16,9 +16,14 @@
 
       <LocationWidget
         v-if="
-          Object.keys($store.state.locationData.currentLocationData).length > 0
+          $store.state.latestSearches.latestSearchesData.length &&
+          $store.state.latestSearches.latestSearchesData.at(-1)
+            .widgetWeatherData
         "
-        :widgetData="$store.state.locationData.currentLocationData"
+        :widgetData="
+          $store.state.latestSearches.latestSearchesData.at(-1)
+            .widgetWeatherData
+        "
         @click="
           () =>
             redirectToForecast(
@@ -91,10 +96,6 @@ export default {
       this.$router.push(`/forecast/${id}`);
     },
     getWeather(weatherData) {
-      this.$store.commit(
-        "locationData/setLocationData",
-        weatherData.widgetWeatherData
-      );
       this.$store.commit("latestSearches/setLatestSearchesData", weatherData);
     },
   },
