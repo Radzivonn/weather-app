@@ -4,7 +4,7 @@
   <main
     v-if="
       Object.keys(
-        $store.state.latestSearches.latestSearchesData[this.$route.params.id]
+        $store.state.latestSearches.latestSearchesData[this.$route.params.id],
       ).length > 0
     "
     class="main"
@@ -17,7 +17,7 @@
             getImagePath(
               $store.state.latestSearches.latestSearchesData[
                 this.$route.params.id
-              ].widgetWeatherData
+              ].widgetWeatherData,
             )
           "
         />
@@ -107,10 +107,10 @@
 </template>
 
 <script>
-import CustomHeader from "@/components/UI/CustomHeader";
-import ForecastWidget from "@/components/UI/ForecastWidget";
-import WeatherComponent from "@/components/WeatherComponent";
-import { getImagePath } from "@/components/helpers.js";
+import CustomHeader from '@/components/UI/CustomHeader';
+import ForecastWidget from '@/components/UI/ForecastWidget';
+import WeatherComponent from '@/components/WeatherComponent';
+import { getImagePath } from '@/utils/helpers.js';
 
 export default {
   components: {
@@ -122,8 +122,8 @@ export default {
   data() {
     return {
       pageInfo: {
-        link: "/",
-        pageName: "Home",
+        link: '/',
+        pageName: 'Home',
       },
       getImagePath: getImagePath,
     };
@@ -136,7 +136,7 @@ export default {
   position: relative;
   z-index: 5;
   width: 100%;
-  font-family: "Inter", sans-serif;
+  font-family: 'Inter', sans-serif;
   margin: 35px auto;
 }
 
@@ -200,7 +200,7 @@ export default {
   .header {
     display: flex;
     justify-content: space-between;
-    font-family: "Inter", sans-serif;
+    font-family: 'Inter', sans-serif;
     font-size: 1.3em;
     margin-bottom: 20px;
     h3 {

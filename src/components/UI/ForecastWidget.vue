@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import { getImagePath } from "@/components/helpers.js";
+import { getImagePath } from '@/utils/helpers.js';
 
 export default {
   data() {
